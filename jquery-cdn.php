@@ -4,12 +4,17 @@ namespace Vralle\Plugins\JqueryCDN;
 /**
  * Plugin Name: VRALLE.jQuery.CDN
  * Plugin URI: https://plugin.uri
- * Description: Load jQuery from jQuery's CDN with a local fallback. Include integrity and crossorigin attributes.
- * Version: 0.1
+ * Description: Load jQuery from jQuery's CDN with a local fallback
+ * Version: 2018-04-01
  * Author: Vitaliy Ralle
  * Author URI: https://author.uri
  * License: GPL2
  */
+
+// If this file is called directly, abort.
+if (!defined('WPINC')) {
+    die;
+}
 
 function registerJquery()
 {
@@ -63,11 +68,14 @@ function tagAttr($tag, $handle, $src)
 {
     if ('jquery' === $handle) {
         $hash = getHash($src);
-        return \str_replace(
-            '></script>',
-            ' integrity="sha384-' . $hash . '" crossorigin="anonymous"></script>',
-            $tag
-        );
+
+        if ($hash) {
+            $tag = \str_replace(
+                '></script>',
+                ' integrity="sha384-' . $hash . '" crossorigin="anonymous"></script>',
+                $tag
+            );
+        }
     }
 
     return $tag;
@@ -76,9 +84,16 @@ function tagAttr($tag, $handle, $src)
 
 function getHash($src)
 {
-    if (false === ($hash = \get_transient('jquery_hash'))) {
-        $hash = \base64_encode(\hash_file('sha384', $src, true));
-        set_transient('jquery_hash', $hash, WEEK_IN_SECONDS);
+    $hash = \get_transient('jquery_hash');
+    if (false === $hash) {
+        $hash = \base64_encode(hash_file('sha384', $src, true));
+        // If "allow_url_fopen=0", hash_file returns empty string.
+        // ToDo: Admin Notice, if allow_url_fopen=0
+        if ('' != $hash) {
+            set_transient('jquery_hash', $hash, WEEK_IN_SECONDS);
+        } else {
+            $hash = false;
+        }
     }
 
     return $hash;
