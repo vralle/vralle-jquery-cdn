@@ -3,13 +3,13 @@ namespace Vralle\Jquery\Cdn;
 
 /**
  * Plugin Name: vralle.jQuery.CDN
- * Plugin URI: https://github.com/vralle/jquery-cdn/
+ * Plugin URI: https://github.com/vralle/vralle-jquery-cdn
  * Description: Load jQuery from jQuery's CDN with a local fallback
  * Version: 2018-08-22
  * Author: V.Ralle
  * Author URI: https://github.com/vralle/
  * License: MIT
- * GitHub Plugin URI: https://github.com/vralle/jquery-cdn/
+ * GitHub Plugin URI: https://github.com/vralle/vralle-jquery-cdn.git
  */
 
 // If this file is called directly, abort.
