@@ -4,8 +4,8 @@ namespace Vralle\Jquery\Cdn;
 /**
  * Plugin Name: vralle.jQuery.CDN
  * Plugin URI: https://github.com/vralle/vralle-jquery-cdn
- * Description: Load jQuery from jQuery's CDN with a local fallback
- * Version: 2018-08-22
+ * Description: A modern way to load jQuery from CDN with a local fallback
+ * Version: 2018-09-15
  * Author: V.Ralle
  * Author URI: https://github.com/vralle/
  * License: MIT
@@ -23,7 +23,7 @@ function registerJquery()
     \wp_deregister_script('jquery');
     \wp_register_script(
         'jquery',
-        'https://code.jquery.com/jquery-' . $jquery_version . '.min.js',
+        'https://ajax.googleapis.com/ajax/libs/jquery/' . $jquery_version . '/jquery.min.js',
         [],
         null,
         true
