@@ -36,7 +36,7 @@ function registerJquery()
 function addResourceHints($urls, $relation_type)
 {
     if ($relation_type === 'dns-prefetch') {
-        $urls[] = 'code.jquery.com';
+        $urls[] = 'ajax.googleapis.com';
     }
     return $urls;
 }
