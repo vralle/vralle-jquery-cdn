@@ -5,7 +5,7 @@ namespace Vralle\Jquery\Cdn;
  * Plugin Name: vralle.jQuery.CDN
  * Plugin URI: https://github.com/vralle/vralle-jquery-cdn
  * Description: A modern way to load jQuery from CDN with a local fallback
- * Version: 2018-09-15
+ * Version: 2018-10-10
  * Author: V.Ralle
  * Author URI: https://github.com/vralle/
  * License: MIT
@@ -35,7 +35,7 @@ function registerJquery()
 
 function addResourceHints($urls, $relation_type)
 {
-    if ($relation_type === 'dns-prefetch') {
+    if ($relation_type === 'preconnect') {
         $urls[] = 'ajax.googleapis.com';
     }
     return $urls;
