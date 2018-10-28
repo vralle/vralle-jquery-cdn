@@ -5,7 +5,7 @@ namespace Vralle\Jquery\Cdn;
  * Plugin Name:         vralle.jQuery-CDN
  * Plugin URI:          https://github.com/vralle/vralle-jquery-cdn
  * Description:         A modern way to load jQuery from CDN with a local fallback
- * Version:             2018-10-20
+ * Version:             2018-10-28
  * Author:              V.Ralle
  * Author URI:          https://github.com/vralle/
  * License:             MIT
@@ -37,7 +37,7 @@ if (!defined('WPINC')) {
         true
     );
 
-    $jquery_fallback = sprintf(
+    $jquery_fallback = \sprintf(
         '(window.jQuery && jQuery.noConflict()) || document.write(\'<script src=\"%s\"><\/script>\')',
         \esc_url(\includes_url('/js/jquery/jquery.js'))
     );
