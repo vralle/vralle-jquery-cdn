@@ -20,7 +20,7 @@ if (!defined('WPINC')) {
 }
 
 \add_filter('wp_resource_hints', function ($urls, $relation_type) {
-    if ($relation_type === 'preconnect') {
+    if ($relation_type === 'preconnect' && !is_admin()) {
         $urls[] = array(
             'href' => 'https://ajax.googleapis.com',
             'crossorigin' => 'anonymous',
