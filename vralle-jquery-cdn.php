@@ -54,7 +54,7 @@ if (!defined('WPINC')) {
         if ($hash) {
             $tag = \str_replace(
                 '></script>',
-                ' integrity="sha384-' . $hash . '" crossorigin="anonymous"></script>',
+                ' integrity="sha384-' . \esc_attr($hash) . '" crossorigin="anonymous"></script>',
                 $tag
             );
         }
