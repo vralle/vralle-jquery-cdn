@@ -5,7 +5,7 @@ namespace Vralle\Jquery\Cdn;
  * Plugin Name:         vralle.jQuery-CDN
  * Plugin URI:          https://github.com/vralle/vralle-jquery-cdn
  * Description:         A modern way to load jQuery from CDN with a local fallback
- * Version:             2018-11-24
+ * Version:             2019-01-21
  * Author:              V.Ralle
  * Author URI:          https://github.com/vralle/
  * License:             MIT
@@ -19,7 +19,9 @@ if (!defined('WPINC')) {
     die;
 }
 
-\add_filter('wp_resource_hints', function ($urls, $relation_type) {
+\add_filter('wp_resource_hints', __NAMESPACE__  . '\\set_resource_hints', 10, 2);
+function set_resource_hints($urls, $relation_type)
+{
     if ($relation_type === 'preconnect' && !is_admin()) {
         $urls[] = array(
             'href' => 'https://ajax.googleapis.com',
@@ -27,9 +29,11 @@ if (!defined('WPINC')) {
         );
     }
     return $urls;
-}, 10, 2);
+}
 
-\add_action('wp_enqueue_scripts', function () {
+\add_action('wp_enqueue_scripts', __NAMESPACE__ . '\\enqueue_scripts', 100);
+function enqueue_scripts()
+{
     $jquery_version = \wp_scripts()->registered['jquery']->ver;
     \wp_deregister_script('jquery');
     \wp_register_script(
@@ -45,9 +49,11 @@ if (!defined('WPINC')) {
         \esc_url(\includes_url('/js/jquery/jquery.js'))
     );
     \wp_add_inline_script('jquery', $jquery_fallback);
-}, 100);
+}
 
-\add_filter('script_loader_tag', function ($tag, $handle, $src) {
+\add_filter('script_loader_tag', __NAMESPACE__ . '\\build_script_tag', 10, 3);
+function build_script_tag($tag, $handle, $src)
+{
     if ('jquery' === $handle) {
         $hash = getHash($src);
 
@@ -61,7 +67,7 @@ if (!defined('WPINC')) {
     }
 
     return $tag;
-}, 10, 3);
+}
 
 function getHash($src)
 {
