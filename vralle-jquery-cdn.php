@@ -51,41 +51,20 @@ function enqueue_scripts()
     \wp_add_inline_script('jquery', $jquery_fallback);
 }
 
-\add_filter('script_loader_tag', __NAMESPACE__ . '\\build_script_tag', 10, 3);
-function build_script_tag($tag, $handle, $src)
-{
-    if ('jquery' === $handle) {
-        $hash = getHash($src);
-
-        if ($hash) {
+\add_filter(
+    'script_loader_tag',
+    function ($tag, $handle, $src) {
+        if (is_admin()) {
+            return $tag;
+        }
+        if ('jquery' === $handle) {
             $tag = \str_replace(
                 '></script>',
-                ' integrity="sha384-' . \esc_attr($hash) . '" crossorigin="anonymous"></script>',
+                ' crossorigin="anonymous"></script>',
                 $tag
             );
         }
+
+        return $tag;
     }
-
-    return $tag;
-}
-
-function getHash($src)
-{
-    $hash = \get_transient('jquery_hash');
-    if (false === $hash) {
-        $hash = \base64_encode(hash_file('sha384', $src, true));
-        // If "allow_url_fopen=0", hash_file returns empty string.
-        // ToDo: Admin Notice, if allow_url_fopen=0
-        if ('' != $hash) {
-            \set_transient('jquery_hash', $hash, \WEEK_IN_SECONDS);
-        } else {
-            $hash = false;
-        }
-    }
-
-    return $hash;
-}
-
-\add_action('_core_updated_successfully', function () {
-    \delete_transient('jquery_hash');
-});
+);
