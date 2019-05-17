@@ -50,7 +50,7 @@ function enqueue_scripts()
         'jquery',
         'https://ajax.googleapis.com/ajax/libs/jquery/' . $jquery_version . '/jquery.min.js',
         [],
-        null,
+        $jquery_version,
         true
     );
 
