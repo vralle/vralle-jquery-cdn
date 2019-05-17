@@ -88,5 +88,7 @@ function enqueue_scripts()
         }
 
         return $tag;
-    }
+    },
+    10,
+    3
 );
