@@ -19,15 +19,25 @@ if (!defined('WPINC')) {
     die;
 }
 
+function is_amp()
+{
+    return function_exists('is_amp_endpoint') && is_amp_endpoint();
+}
+
 \add_filter('wp_resource_hints', __NAMESPACE__  . '\\set_resource_hints', 10, 2);
 function set_resource_hints($urls, $relation_type)
 {
-    if ($relation_type === 'preconnect' && !is_admin()) {
+    if (is_admin() || is_amp()) {
+        return $urls;
+    }
+
+    if ($relation_type === 'preconnect') {
         $urls[] = array(
             'href' => 'https://ajax.googleapis.com',
             'crossorigin' => 'anonymous',
         );
     }
+
     return $urls;
 }
 
