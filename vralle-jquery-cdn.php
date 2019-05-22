@@ -5,7 +5,7 @@ namespace Vralle\Jquery\Cdn;
  * Plugin Name:         vralle.jQuery-CDN
  * Plugin URI:          https://github.com/vralle/vralle-jquery-cdn
  * Description:         A modern way to load jQuery from CDN with a local fallback
- * Version:             2019-05-17-1
+ * Version:             2019-05-23
  * Author:              V.Ralle
  * Author URI:          https://github.com/vralle/
  * License:             MIT
@@ -52,7 +52,7 @@ function add_preload_script()
     if (wp_script_is('jquery', 'queue')) {
         $jquery_src = \wp_scripts()->registered['jquery']->src;
         ?>
-<link href="<?php echo $jquery_src; ?>" rel="preload" as="script" crossorigin="anonymous">
+<link href="<?php echo esc_url($jquery_src); ?>" rel="preload" as="script" crossorigin="anonymous">
         <?php
     }
 }
@@ -60,7 +60,12 @@ function add_preload_script()
 \add_action('wp_enqueue_scripts', __NAMESPACE__ . '\\enqueue_scripts', 100);
 function enqueue_scripts()
 {
-    $jquery_version = \wp_scripts()->registered['jquery']->ver;
+    global $wp_version;
+    if (version_compare($wp_version, '5.2.1', '>=' )) {
+        $jquery_version = '3.4.1';
+    } else {
+        $jquery_version = \wp_scripts()->registered['jquery']->ver;
+    }
     \wp_deregister_script('jquery');
     \wp_register_script(
         'jquery',
