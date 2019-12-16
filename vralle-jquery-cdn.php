@@ -50,7 +50,7 @@ function init() {
 }
 
 /**
- * Register new src and ad fallback
+ * Load jQuery from Google CDN with a local fallback
  */
 function enqueue_scripts() {
     $jquery_script = wp_scripts()->registered['jquery-core'];
