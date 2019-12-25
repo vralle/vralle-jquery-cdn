@@ -53,6 +53,9 @@ function init() {
  * Load jQuery from Google CDN with a local fallback
  */
 function enqueue_scripts() {
+    if ( is_admin() || is_customize_preview() || is_preview() ) {
+        return;
+    }
     $jquery_script = wp_scripts()->registered['jquery-core'];
     $jquery_src    = $jquery_script->src;
     $jquery_ver    = $jquery_script->ver;
@@ -94,7 +97,7 @@ function enqueue_scripts() {
  * @return string The script tag
  */
 function make_tag( $tag, $handle, $src ) {
-    if ( is_admin() ) {
+    if ( is_admin() || is_customize_preview() || is_preview() ) {
         return $tag;
     }
     if ( 'jquery-core' === $handle ) {
@@ -111,7 +114,7 @@ function make_tag( $tag, $handle, $src ) {
  * Add 'preload' meta link
  */
 function add_preload_link() {
-    if ( is_admin() ) {
+    if ( is_admin() || is_customize_preview() || is_preview() ) {
         return;
     }
     if ( wp_script_is( 'jquery' ) ) {
