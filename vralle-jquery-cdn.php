@@ -46,7 +46,6 @@ add_action( 'plugins_loaded', __NAMESPACE__ . '\\init' );
 function init() {
     add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\\enqueue_scripts', 11 );
     add_filter( 'script_loader_tag', __NAMESPACE__ . '\\make_tag', 10, 3 );
-    add_action( 'wp_head', __NAMESPACE__ . '\\add_preload_link', 1 );
 }
 
 /**
@@ -108,21 +107,6 @@ function make_tag( $tag, $handle, $src ) {
     }
 
     return $tag;
-}
-
-/**
- * Add 'preload' meta link
- */
-function add_preload_link() {
-    if ( is_admin() || is_customize_preview() || is_preview() ) {
-        return;
-    }
-    if ( wp_script_is( 'jquery' ) ) {
-        $jquery_src = wp_scripts()->registered['jquery-core']->src;
-        ?>
-<link href="<?php echo esc_url( $jquery_src ); ?>" rel="preload" as="script" crossorigin="anonymous">
-        <?php
-    }
 }
 
 /**
