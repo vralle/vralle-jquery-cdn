@@ -59,18 +59,26 @@ function enqueue_scripts() {
     $jquery_src    = $jquery_script->src;
     $jquery_ver    = $jquery_script->ver;
 
+    /**
+     * CDN version of jQuery
+     *
+     * @param string             Current jQuery version.
+     * @param string $jquery_ver The jQuery version used by WordPress.
+     */
+    $cdn_ver = apply_filters( 'vralle_jquery_cdn_ver', '3.4.1', $jquery_ver );
+
     wp_deregister_script( 'jquery-core' );
     wp_deregister_script( 'jquery' );
 
     wp_register_script(
         'jquery-core',
-        'https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js',
+        'https://ajax.googleapis.com/ajax/libs/jquery/' . $cdn_ver . '/jquery.min.js',
         array(),
-        apply_filters( 'vralle_jquery_cdn_ver', '3.4.1', $jquery_ver ),
+        $cdn_ver,
         true
     );
 
-    wp_register_script( 'jquery', false, array( 'jquery-core' ), $jquery_ver, true );
+    wp_register_script( 'jquery', false, array( 'jquery-core' ), $cdn_ver, true );
 
     $site_url = site_url();
 
