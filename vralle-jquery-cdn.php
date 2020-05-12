@@ -3,7 +3,7 @@
  * Plugin Name:         vralle.jQuery-CDN
  * Plugin URI:          https://github.com/vralle/vralle-jquery-cdn
  * Description:         A modern way to load jQuery from CDN with a local fallback
- * Version:             2019-12-27
+ * Version:             2020-05-12
  * Author:              V.Ralle
  * Author URI:          https://github.com/vralle/
  * License:             MIT
