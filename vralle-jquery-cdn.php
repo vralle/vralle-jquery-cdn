@@ -65,7 +65,7 @@ function enqueue_scripts() {
      * @param string             Current jQuery version.
      * @param string $jquery_ver The jQuery version used by WordPress.
      */
-    $cdn_ver = apply_filters( 'vralle_jquery_cdn_ver', '3.4.1', $jquery_ver );
+    $cdn_ver = apply_filters( 'vralle_jquery_cdn_ver', '3.5.1', $jquery_ver );
 
     wp_deregister_script( 'jquery-core' );
     wp_deregister_script( 'jquery' );
