@@ -3,15 +3,13 @@
 * Contributors: vralle
 * Tags: jquery,cdn
 * Requires at least: 4.6
-* Tested up to: 5.3.1
+* Tested up to: 5.4.1
 * Requires PHP: 5.6
 * Stable tag: master
 * License: MIT
 
 Load jQuery from Google CDN:
-* At the moment the plugin uses the latest version of jQuery (v3.4.1).
-* The plugin adds a script preload meta link.
-* The plugin adds crossorigin="anonymous" attribute to the script tag and 'preload' meta link.
+* At the moment the plugin uses the latest version of jQuery (v3.5.x).
 * Local fallback uses WP specific version of jQuery
 
 ## Installation
