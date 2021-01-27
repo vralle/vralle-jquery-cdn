@@ -2,7 +2,7 @@
 Contributors: vit-1
 Tags: jquery,cdn
 Requires at least: 4.6
-Tested up to: 5.4.1
+Tested up to: 5.6.0
 Stable tag: master
 Requires PHP: 5.6
 License: MIT
